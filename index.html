@@ -3,39 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boda Marc & Judith – 10 de mayo de 2040</title>
+<title>Boda Marc & Judith</title>
 
 <style>
-  :root {
-    --bg: #f8f4ee;
-    --bg-alt: #fffaf3;
-    --primary: #c9a36b;
-    --primary-soft: rgba(201, 163, 107, 0.12);
-    --text: #3b342a;
-    --muted: #8a7c66;
-    --white: #ffffff;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
   body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
+    margin: 0;
+    background: #f7f2f5;
+    font-family: "Georgia", serif;
+    overflow: hidden;
   }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  /* INTRO INVITACIÓN (SOBRE + CARTA) */
+  /* INTRO A PANTALLA COMPLETA */
   .intro {
     position: fixed;
     inset: 0;
@@ -46,29 +24,17 @@
     z-index: 50;
   }
 
-  .intro.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.8s ease;
-  }
-
-  .container-envelope {
-    position: relative;
-    width: 360px;
-    height: 280px;
-  }
-
+  /* SOBRE A PANTALLA COMPLETA */
   .envelope {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: white;
-    border: 2px solid #e3c7d8;
-    border-radius: 12px;
+    border: 3px solid #e3c7d8;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   }
 
+  /* TAPA DEL SOBRE */
   .flap {
     position: absolute;
     top: 0;
@@ -78,33 +44,36 @@
     background: #f1d9e6;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
-    transition: transform 0.7s ease;
+    transition: transform 0.8s ease;
   }
 
+  /* CORAZÓN */
   .heart-btn {
     position: absolute;
-    top: 45%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #d46a8c;
-    width: 70px;
-    height: 70px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     color: white;
-    font-size: 34px;
+    font-size: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 8px 20px rgba(212,106,140,0.4);
     transition: 0.2s ease;
+    z-index: 10;
   }
 
   .heart-btn:hover {
     transform: translate(-50%, -50%) scale(1.1);
   }
 
+  /* CARTA DIVIDIDA */
   .letter-half {
     position: fixed;
     top: 0;
@@ -113,7 +82,7 @@
     background: white;
     z-index: 60;
     transition: transform 1s ease;
-    box-shadow: 0 0 40px rgba(0,0,0,0.15);
+    display: none;
   }
 
   .left-half {
@@ -134,7 +103,8 @@
     transform: translateX(100%);
   }
 
-  .intro-text {
+  /* TEXTO DE LA INVITACIÓN */
+  .invitation {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -143,784 +113,85 @@
     transform: translate(-50%, -50%);
     text-align: center;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 1.2s ease;
     z-index: 55;
-    font-family: "Georgia", serif;
   }
 
-  .intro-text.show {
+  .invitation.show {
     opacity: 1;
   }
 
-  .intro-text h1 {
-    font-size: 2.4rem;
+  .invitation h1 {
+    font-size: 3rem;
     color: #b45d7a;
     margin-bottom: 10px;
   }
 
-  .intro-text p {
-    font-size: 1.1rem;
+  .invitation p {
+    font-size: 1.3rem;
     color: #444;
-    margin-bottom: 6px;
-  }
-
-  /* PÁGINA PRINCIPAL */
-  main {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.8s ease;
-  }
-
-  main.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  header,
-  section {
-    padding: 4rem 1.5rem;
-  }
-
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  h1, h2, h3 {
-    font-family: "Georgia", "Times New Roman", serif;
-    letter-spacing: 0.04em;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin-bottom: 2.5rem;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    background: radial-gradient(circle at top left, #fffaf3 0, #f3e6d3 40%, #f8f4ee 80%);
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  .hero-tagline {
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-title {
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .hero-title span {
-    color: var(--primary);
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-date {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .btn {
-    border-radius: 999px;
-    padding: 0.7rem 1.4rem;
-    font-size: 0.9rem;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    text-decoration: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
-    white-space: nowrap;
-  }
-
-  .btn-primary {
-    background: var(--primary);
-    color: var(--white);
-    box-shadow: 0 10px 25px rgba(201, 163, 107, 0.4);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 30px rgba(201, 163, 107, 0.5);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--primary-soft);
-  }
-
-  .btn-ghost:hover {
-    background: var(--primary-soft);
-  }
-
-  .countdown {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .count-box {
-    min-width: 70px;
-    padding: 0.6rem 0.8rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0,0,0,0.03);
-    text-align: center;
-  }
-
-  .count-number {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary);
-  }
-
-  .count-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-  }
-
-  .hero-card {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 24px;
-    padding: 1.8rem 1.6rem;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-card::before {
-    content: "";
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(201, 163, 107, 0.18), transparent 60%);
-    top: -80px;
-    right: -60px;
-    opacity: 0.9;
-  }
-
-  .hero-card-title {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-card-line {
-    font-size: 0.95rem;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-  }
-
-  .hero-card-divider {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    margin: 1.2rem 0;
-  }
-
-  section:nth-of-type(odd) {
-    background: var(--bg);
-  }
-
-  section:nth-of-type(even) {
-    background: var(--bg-alt);
-  }
-
-  .story-text {
-    max-width: 640px;
-    margin: 0 auto;
-    font-size: 1rem;
-    color: var(--text);
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .info-card {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 1.6rem 1.5rem;
-    border: 1px solid rgba(0,0,0,0.04);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-  }
-
-  .info-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-  }
-
-  .info-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.4rem;
-  }
-
-  .info-detail {
-    font-size: 0.95rem;
-    color: var(--text);
-    margin-bottom: 0.2rem;
-  }
-
-  .maps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .map-card {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 1.2rem 1.2rem 1.4rem;
-    border: 1px solid rgba(0,0,0,0.04);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-  }
-
-  .map-card h3 {
-    font-size: 1rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .map-card p {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-  }
-
-  .map-iframe {
-    width: 100%;
-    height: 220px;
-    border: 0;
-    border-radius: 12px;
-  }
-
-  .rsvp-form {
-    max-width: 520px;
-    margin: 0 auto;
-    background: var(--white);
-    border-radius: 18px;
-    padding: 1.8rem 1.6rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.03);
-  }
-
-  .form-group {
-    margin-bottom: 1rem;
-  }
-
-  label {
-    display: block;
-    font-size: 0.85rem;
-    margin-bottom: 0.3rem;
-    color: var(--muted);
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 0.6rem 0.7rem;
-    border-radius: 10px;
-    border: 1px solid rgba(0,0,0,0.12);
-    font-size: 0.95rem;
-    font-family: inherit;
-    color: var(--text);
-    background: #fdfaf5;
-  }
-
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 1px rgba(201, 163, 107, 0.3);
-    background: #fffdf8;
-  }
-
-  .form-note {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 0.4rem;
-  }
-
-  .timeline {
-    max-width: 640px;
-    margin: 0 auto;
-    border-left: 2px solid var(--primary-soft);
-    padding-left: 1.2rem;
-  }
-
-  .timeline-item {
-    margin-bottom: 1.2rem;
-    position: relative;
-  }
-
-  .timeline-item::before {
-    content: "";
-    position: absolute;
-    left: -1.25rem;
-    top: 0.25rem;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--primary);
-  }
-
-  .timeline-time {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.1rem;
-  }
-
-  .timeline-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 0.1rem;
-  }
-
-  .timeline-text {
-    font-size: 0.9rem;
-    color: var(--text);
-  }
-
-  .extra-note {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-align: center;
-  }
-
-  footer {
-    padding: 2rem 1.5rem 2.5rem;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--muted);
-    background: var(--bg);
-  }
-
-  @media (max-width: 768px) {
-    .hero-inner {
-      grid-template-columns: 1fr;
-    }
-    .hero {
-      padding-top: 4rem;
-    }
-    .hero-title {
-      font-size: 2.2rem;
-    }
+    margin-bottom: 8px;
   }
 </style>
 </head>
+
 <body>
 
-<!-- INTRO INVITACIÓN -->
-<div class="intro" id="intro">
-  <div class="container-envelope">
-    <div class="envelope">
-      <div class="flap" id="flap"></div>
-      <button class="heart-btn" id="openBtn">❤</button>
-    </div>
-  </div>
-</div>
+<!-- CARTA DIVIDIDA -->
+<div class="letter-half left-half" id="leftHalf"></div>
+<div class="letter-half right-half" id="rightHalf"></div>
 
-<div class="letter-half left-half" id="leftHalf" style="display:none;"></div>
-<div class="letter-half right-half" id="rightHalf" style="display:none;"></div>
-
-<div class="intro-text" id="introText">
-  <h1>Marc &amp; Judith</h1>
+<!-- TEXTO DE LA INVITACIÓN -->
+<div class="invitation" id="invitation">
+  <h1>Marc & Judith</h1>
   <p>Nos casamos</p>
   <p><strong>10 de mayo de 2040</strong></p>
 </div>
 
-<!-- PÁGINA PRINCIPAL -->
-<main id="page">
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container hero-inner">
-      <div>
-        <div class="hero-tagline">Nos casamos</div>
-        <h1 class="hero-title">
-          Marc <span>&amp;</span> Judith
-        </h1>
-        <p class="hero-subtitle">
-          Queremos compartir contigo un día lleno de amor, alegría y momentos inolvidables.
-        </p>
-        <p class="hero-date">10 de mayo de 2040 · Mallorca</p>
-
-        <div class="hero-cta">
-          <a href="#rsvp" class="btn btn-primary">Confirmar asistencia</a>
-          <a href="#ubicaciones" class="btn btn-ghost">Ver ubicaciones</a>
-        </div>
-
-        <div>
-          <p class="section-subtitle" style="margin-bottom: 0.8rem; text-align:left;">
-            Cuenta atrás para nuestro gran día
-          </p>
-          <div class="countdown" id="countdown">
-            <div class="count-box">
-              <div class="count-number" id="days">--</div>
-              <div class="count-label">Días</div>
-            </div>
-            <div class="count-box">
-              <div class="count-number" id="hours">--</div>
-              <div class="count-label">Horas</div>
-            </div>
-            <div class="count-box">
-              <div class="count-number" id="minutes">--</div>
-              <div class="count-label">Min</div>
-            </div>
-            <div class="count-box">
-              <div class="count-number" id="seconds">--</div>
-              <div class="count-label">Seg</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <div class="hero-card-title">Boda · 10 · 05 · 2040</div>
-        <div class="hero-card-line">Ceremonia: Finca Son Sampol, 12:30 h</div>
-        <div class="hero-card-line">Convite: Hacienda San Antonio, 14:00 h</div>
-        <div class="hero-card-divider"></div>
-        <div class="hero-card-line">
-          “La mejor parte de nuestra historia es poder seguir escribiéndola contigo a nuestro lado.”
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- HISTORIA -->
-  <section id="historia">
-    <div class="container">
-      <h2>Nuestra historia</h2>
-      <p class="section-subtitle">
-        Un camino compartido que nos ha traído hasta este momento.
-      </p>
-      <p class="story-text">
-        Marc y Judith se conocieron en un momento aparentemente cualquiera, pero desde entonces nada volvió a ser igual.
-        Entre miradas cómplices, conversaciones interminables y planes de futuro, descubrieron que lo que tenían era algo
-        único. Hoy, después de tantos recuerdos, risas y desafíos compartidos, quieren dar un paso más y celebrar con
-        vosotros el comienzo de una nueva etapa: su vida juntos como matrimonio.
-      </p>
-    </div>
-  </section>
-
-  <!-- CEREMONIA -->
-  <section id="ceremonia">
-    <div class="container">
-      <h2>Ceremonia</h2>
-      <p class="section-subtitle">
-        Un “sí, quiero” rodeados de naturaleza.
-      </p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-label">Lugar</div>
-          <div class="info-title">Finca Son Sampol (Mallorca)</div>
-          <p class="info-detail">Ceremonia al aire libre</p>
-          <p class="info-detail">Hora: 12:30 h</p>
-        </div>
-        <div class="info-card">
-          <p class="info-detail">
-            La ceremonia tendrá lugar en un entorno natural donde celebraremos este momento tan especial junto a vosotros.
-          </p>
-          <p class="info-detail">
-            Nos encantará que lleguéis con tiempo para disfrutar del ambiente, saludaros con calma y empezar a vivir
-            juntos este día desde el primer minuto.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONVITE -->
-  <section id="convite">
-    <div class="container">
-      <h2>Convite</h2>
-      <p class="section-subtitle">
-        Una celebración para disfrutar, brindar y crear recuerdos.
-      </p>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="info-label">Lugar</div>
-          <div class="info-title">Hacienda San Antonio</div>
-          <p class="info-detail">Hora: 14:00 h</p>
-        </div>
-        <div class="info-card">
-          <p class="info-detail">
-            Después de la ceremonia, continuaremos la celebración con el convite, donde compartiremos comida, risas y
-            momentos inolvidables.
-          </p>
-          <p class="info-detail">
-            Habrá tiempo para brindar, bailar y disfrutar de cada instante. Lo más importante para nosotros es poder
-            vivirlo con vosotros.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- UBICACIONES -->
-  <section id="ubicaciones">
-    <div class="container">
-      <h2>Ubicaciones</h2>
-      <p class="section-subtitle">
-        Te lo ponemos fácil para que llegues sin complicaciones.
-      </p>
-
-      <div class="maps-grid">
-        <div class="map-card">
-          <h3>Ceremonia – Finca Son Sampol</h3>
-          <p>La ceremonia se celebrará en un entorno natural y tranquilo.</p>
-          <iframe
-            class="map-iframe"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d"
-          ></iframe>
-        </div>
-
-        <div class="map-card">
-          <h3>Convite – Hacienda San Antonio</h3>
-          <p>Después de la ceremonia, nos desplazaremos al lugar del convite.</p>
-          <iframe
-            class="map-iframe"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d"
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="rsvp">
-    <div class="container">
-      <h2>Confirmación de asistencia</h2>
-      <p class="section-subtitle">
-        Tu presencia es el regalo más importante. Cuéntanos si podrás acompañarnos.
-      </p>
-
-      <form class="rsvp-form" onsubmit="handleRSVP(event)">
-        <div class="form-group">
-          <label for="nombre">Nombre y apellidos</label>
-          <input type="text" id="nombre" name="nombre" required />
-        </div>
-
-        <div class="form-group">
-          <label for="personas">Número de personas</label>
-          <input type="number" id="personas" name="personas" min="1" max="10" required />
-        </div>
-
-        <div class="form-group">
-          <label for="asistencia">¿Podrás asistir?</label>
-          <select id="asistencia" name="asistencia" required>
-            <option value="">Selecciona una opción</option>
-            <option value="si">Sí, allí estaré</option>
-            <option value="no">No podré asistir</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="mensaje">Mensaje (opcional)</label>
-          <textarea id="mensaje" name="mensaje" rows="3" placeholder="¿Alguna alergia, petición especial o mensaje para nosotros?"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">
-          Enviar confirmación
-        </button>
-        <p class="form-note">
-          La web es una invitación digital simple, elegante y pensada para que te sea fácil responder.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <!-- INFO EXTRA -->
-  <section id="info-extra">
-    <div class="container">
-      <h2>Información útil</h2>
-      <p class="section-subtitle">
-        Algunos detalles para que puedas organizarte con tranquilidad.
-      </p>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-time">11:45 – 12:15</div>
-          <div class="timeline-title">Llegada a la ceremonia</div>
-          <div class="timeline-text">
-            Te recomendamos llegar con tiempo para aparcar con calma, encontrar tu sitio y disfrutar del entorno.
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-time">12:30</div>
-          <div class="timeline-title">Inicio de la ceremonia</div>
-          <div class="timeline-text">
-            La ceremonia comenzará puntualmente. Nos hará mucha ilusión veros allí desde el principio.
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-time">14:00</div>
-          <div class="timeline-title">Convite en Hacienda San Antonio</div>
-          <div class="timeline-text">
-            Tras la ceremonia, nos desplazaremos al lugar del convite. Habrá tiempo para el traslado entre ambos puntos.
-          </div>
-        </div>
-      </div>
-
-      <p class="extra-note">
-        La web es simple, elegante, rápida y centrada en la experiencia del invitado. Evitamos recargarla para que
-        puedas encontrar todo de forma clara.
-      </p>
-    </div>
-  </section>
-
-  <footer>
-    Con todo nuestro cariño,<br>
-    Marc &amp; Judith
-  </footer>
-</main>
+<!-- SOBRE A PANTALLA COMPLETA -->
+<div class="intro" id="intro">
+  <div class="envelope">
+    <div class="flap" id="flap"></div>
+    <button class="heart-btn" id="openBtn">❤</button>
+  </div>
+</div>
 
 <script>
-  // Animación invitación
   const openBtn = document.getElementById("openBtn");
   const flap = document.getElementById("flap");
   const leftHalf = document.getElementById("leftHalf");
   const rightHalf = document.getElementById("rightHalf");
+  const invitation = document.getElementById("invitation");
   const intro = document.getElementById("intro");
-  const introText = document.getElementById("introText");
-  const page = document.getElementById("page");
 
   openBtn.addEventListener("click", () => {
+    // Abrir tapa
     flap.style.transform = "rotateX(180deg)";
     openBtn.style.opacity = "0";
 
+    // Mostrar carta dividida
     setTimeout(() => {
       leftHalf.style.display = "block";
       rightHalf.style.display = "block";
     }, 400);
 
+    // Abrir mitades
     setTimeout(() => {
       leftHalf.classList.add("open-left");
       rightHalf.classList.add("open-right");
-      introText.classList.add("show");
     }, 600);
 
+    // Mostrar texto
     setTimeout(() => {
-      intro.classList.add("hidden");
-      page.classList.add("visible");
-    }, 1800);
+      invitation.classList.add("show");
+    }, 1200);
+
+    // Ocultar sobre
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 2000);
   });
-
-  // Cuenta atrás
-  (function () {
-    const targetDate = new Date("2040-05-10T12:30:00").getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
-
-      if (distance <= 0) {
-        daysEl.textContent = "0";
-        hoursEl.textContent = "0";
-        minutesEl.textContent = "0";
-        secondsEl.textContent = "0";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
-
-      daysEl.textContent = days;
-      hoursEl.textContent = hours;
-      minutesEl.textContent = minutes;
-      secondsEl.textContent = seconds;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  })();
-
-  // RSVP simple
-  function handleRSVP(event) {
-    event.preventDefault();
-    const nombre = document.getElementById("nombre").value;
-    const personas = document.getElementById("personas").value;
-    const asistencia = document.getElementById("asistencia").value;
-    const mensaje = document.getElementById("mensaje").value;
-
-    const resumen =
-      "Confirmación de asistencia:\n\n" +
-      "Nombre: " + nombre + "\n" +
-      "Personas: " + personas + "\n" +
-      "Asistencia: " + (asistencia === "si" ? "Sí" : "No") + "\n" +
-      (mensaje ? "Mensaje: " + mensaje + "\n" : "");
-
-    alert("¡Gracias por tu respuesta!\n\n" + resumen);
-    event.target.reset();
-  }
 </script>
+
 </body>
 </html>
-
