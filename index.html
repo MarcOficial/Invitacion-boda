@@ -8,8 +8,8 @@
 <style>
   body {
     margin: 0;
-    font-family: "Georgia", serif;
     background: #f7f2f5;
+    font-family: "Georgia", serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,24 +17,27 @@
     overflow: hidden;
   }
 
+  /* CONTENEDOR */
   .container {
     position: relative;
-    width: 340px;
-    height: 260px;
+    width: 360px;
+    height: 280px;
   }
 
+  /* SOBRE */
   .envelope {
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: white;
     border: 2px solid #e3c7d8;
     border-radius: 12px;
     position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     overflow: hidden;
-    transition: transform 0.6s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: 0.6s ease;
   }
 
+  /* TAPA */
   .flap {
     position: absolute;
     top: 0;
@@ -44,77 +47,90 @@
     background: #f1d9e6;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
-    transition: transform 0.6s ease;
+    transition: transform 0.7s ease;
   }
 
-  .heart-btn {
+  /* CORAZÓN CON CERRADURA */
+  .heart-lock {
     position: absolute;
-    top: 42%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
     background: #d46a8c;
-    width: 60px;
-    height: 60px;
     border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-size: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
+    font-size: 34px;
+    cursor: pointer;
     box-shadow: 0 8px 20px rgba(212,106,140,0.4);
-    transition: transform 0.2s ease;
+    transition: 0.2s ease;
   }
 
-  .heart-btn:hover {
+  .heart-lock:hover {
     transform: translate(-50%, -50%) scale(1.1);
   }
 
-  .letter {
+  /* LLAVE */
+  .key {
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 60px;
+    top: 60%;
+    left: -80px;
     opacity: 0;
-    transition: all 0.7s ease;
+    transition: all 1s ease;
+  }
+
+  /* CARTA A PANTALLA COMPLETA */
+  .letter-full {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 40px 20px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: all 1s ease;
     text-align: center;
+  }
+
+  .letter-full h1 {
+    font-size: 2.4rem;
+    color: #b45d7a;
+    margin-bottom: 10px;
+  }
+
+  .letter-full p {
+    font-size: 1.1rem;
+    color: #444;
+  }
+
+  /* ESTADOS AL ABRIR */
+  .unlock .key {
+    left: 50%;
+    top: 45%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(20deg);
   }
 
   .open .flap {
     transform: rotateX(180deg);
   }
 
-  .open .letter {
-    top: 10%;
+  .open .letter-full {
+    top: 0;
     opacity: 1;
   }
 
-  .open .heart-btn {
+  .open .heart-lock {
     opacity: 0;
     pointer-events: none;
   }
-
-  h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: #b45d7a;
-  }
-
-  .amp {
-    color: #d46a8c;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: #444;
-  }
-
 </style>
 </head>
 
@@ -124,10 +140,15 @@
   <div class="envelope" id="envelope">
     <div class="flap"></div>
 
-    <button class="heart-btn" id="openBtn">❤</button>
+    <!-- CORAZÓN CON CERRADURA -->
+    <div class="heart-lock" id="lock">🔒</div>
 
-    <div class="letter">
-      <h1>Marc <span class="amp">&amp;</span> Judith</h1>
+    <!-- LLAVE -->
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="key" id="key" />
+
+    <!-- CARTA COMPLETA -->
+    <div class="letter-full" id="letter">
+      <h1>Marc & Judith</h1>
       <p>Tenemos el honor de invitarte a nuestra boda.</p>
       <p><strong>12 de septiembre de 2026 · 17:30 h</strong></p>
       <p>Finca Son Mir, Mallorca</p>
@@ -136,11 +157,18 @@
 </div>
 
 <script>
-  document.getElementById("openBtn").addEventListener("click", () => {
-    document.getElementById("envelope").classList.add("open");
+  const lock = document.getElementById("lock");
+  const key = document.getElementById("key");
+  const envelope = document.getElementById("envelope");
+
+  lock.addEventListener("click", () => {
+    envelope.classList.add("unlock");
+
+    setTimeout(() => {
+      envelope.classList.add("open");
+    }, 1200);
   });
 </script>
 
 </body>
 </html>
-
